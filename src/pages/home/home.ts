@@ -12,30 +12,30 @@ declare var cordova: any;
 export class HomePage {
 
     constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
-        // this.checkPermissions();
+        this.checkPermissions();
     }
 
-    /* checkPermissions() {
-     Diagnostic.isCameraAuthorized().then((authorized) => {
-     if(authorized)
-     this.initializePreview();
-     else {
-     Diagnostic.requestCameraAuthorization().then((status) => {
-     if(status == Diagnostic.permissionStatus.GRANTED)
-     this.initializePreview();
-     else {
-     this.toastCtrl.create(
-     {
-     message: "Cannot access camera",
-     position: "bottom",
-     duration: 5000
-     }
-     ).present();
-     }
-     });
-     }
-     });
-     }*/
+    checkPermissions() {
+        Diagnostic.isCameraAuthorized().then((authorized) => {
+            if (authorized)
+                this.initializePreview();
+            else {
+                Diagnostic.requestCameraAuthorization().then((status) => {
+                    if (status == Diagnostic.permissionStatus.GRANTED)
+                        this.initializePreview();
+                    else {
+                        this.toastCtrl.create(
+                            {
+                                message: "Cannot access camera",
+                                position: "bottom",
+                                duration: 5000
+                            }
+                        ).present();
+                    }
+                });
+            }
+        });
+    }
 
     initializePreview() {
         // Define dimensions of preview window
