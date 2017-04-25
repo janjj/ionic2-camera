@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 
-import {NavController} from 'ionic-angular';
+import {NavController, Platform} from 'ionic-angular';
 import {ToastController} from 'ionic-angular';
 import {CameraPreview, CameraPreviewRect, File, Diagnostic} from 'ionic-native';
+import { Toast } from 'ionic-native';
 declare var cordova: any;
 
 @Component({
@@ -11,8 +12,21 @@ declare var cordova: any;
 })
 export class HomePage {
 
-    constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
+    constructor(public navCtrl: NavController, private platform: Platform, public toastCtrl: ToastController) {
         this.checkPermissions();
+
+     /*   if (!platform.is('cordova')) {
+            // You are on a device, cordova plugins are accessible
+        } else {
+            // Cordova not accessible, add mock data if necessary
+        }*/
+        this.platform.ready().then(() =>
+            Toast.show("Successfull", '5000', 'center')
+                .subscribe(
+                    toast => {
+                        console.log(toast);
+                    }
+                ));
     }
 
     checkPermissions() {
